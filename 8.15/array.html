@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+//			//寻找数组中最大值
+//			var arr = [1,2,3,4343433,4,5,6,7,8,3,34343];
+//			function find(arr){
+//				var max = arr[0];
+//				for(var i=0;i<arr.length;i++){
+////					max>arr[i]||(max=arr[i]);
+//					max>arr[i]?max:max=arr[i];
+//				}
+//				return max;
+//			}
+//			console.log(find(arr));
+			
+//			var inp = prompt("查找数字");
+//			var arr=[1,2,1,23,2,33,43432,234,213];
+//			function getnum(arr){
+//				for(var i=0;i<arr.length;i++){
+//					if(inp==arr[i]){
+//						return i;
+//						console.log(arr[i]);
+//					}
+//				}
+//				return -1;
+//			}
+//			console.log(getnum(arr));
+			
+			//冒泡排序
+//			var arr=[1,5,3,132,45,23,57];
+//			function mao(arr){
+//				var i = arr.length,j;
+//				var k;
+//				while(i>0){
+//					for(j=0;j<i-1;j++){
+//						if(arr[j]>arr[j+1]){
+//							k=arr[j];
+//							arr[j]=arr[j+1];
+//							arr[j+1]=k;
+//						}
+//					}
+//					i--;
+//				}
+//				return arr;
+//			}
+//			var arrsort=mao(arr);
+//			console.log(arrsort);
+			
+			var arr=[1,5,3,132,45,23,57];
+			function Bubblesort(arr){
+				for(var r=0;r<arr.length-1;r++){
+					for(var c=0;c<arr.length-r;c++){
+						if(arr[c]>arr[c+1]){
+							arr[c]+=arr[c+1];
+							arr[c+1]=arr[c]-arr[c+1];
+							arr[c]-=arr[c+1];
+						}
+					}
+				}
+			}
+			Bubblesort(arr);
+			console.log(arr);
+		</script>
+</head>
+	<body>
+	</body>
+</html>

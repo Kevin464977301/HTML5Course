@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+//			var str = "http:\\\\127.0.0.1:8020\\1707\\jsday07\\string.html";
+//			console.log(str);
+//			
+//			var str="今晚8点来我房间";
+//			function ecode(str){
+//				var arr=[];
+//				for(var i=0;i<str.length;i++){
+//					var nums=str.charCodeAt(i)-num;
+//					nums=(100000+num+"").slice(1);
+//					arr.push(nums);
+//				}
+//				return arr.join(" ");
+//			}
+//			console.log(ecode(str));
+			
+			var keyword = "我草";
+			var str = "我草女神今晚要来我家，我草草的收拾了一下，结果又不来了，我草！";
+			function find(str){
+				var num=-1;
+				while((num=str.indexOf(keyword,++num))!=-1){
+					console.log(num+"出现敏感词");
+				}
+			}
+			find(str);
+			console.log(str.substring(2,3));
+			console.log(str.slice(2,3));
+			console.log(str.substr(2,2));
+			
+			function decode(str,num){
+				for (var i=0,arr=[];i<str.length;i+=5) {
+					arr.push(String.fromCharCode(parseInt(str.substr(i,5))+num));
+				}
+				console.log(arr.join(""));
+			}
+			decode("2016026192000462884726459250952514138378",10);
+			
+			var str="no zuo no die";
+			function changebig(str){
+				var arr=str.split(" ");
+				for(var i=0;i<arr.length;i++){
+					arr[i]=arr[i][0].toUpperCase()+arr[i].slice(1);
+				}
+				return arr.join(" ");
+			}
+			console.log(changebig(str));
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
