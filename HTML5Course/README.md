@@ -1959,6 +1959,355 @@ nodejs进程管理：
 pm2, supervisor, forever, strongloop
 pm2 start ./bin/www
 
+//ubuntu系统远程连接失败
+在安全组配置一下，开启22 443 80端口，授权对象为 0.0.0.0/0
+//ubuntu系统中安装nodejs和mongodb
+//添加一个用户,输入两次密码，其他的回车即可
+adduser maxwelldu
+//把当前用户添加到sudo组
+adduser maxwelldu sudo
+//切换到这个用户
+su - maxwelldu
+//更新包
+sudo apt-get update
+//安装两个工具
+sudo apt-get install build-essential libssl-dev
+//安装nvm
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.25.3/install.sh | bash
+//使nvm生效
+source ~/.profile
+nvm
+nvm ls-remote
+nvm install 8.7.0
+nvm list
+nvm use 8.7.0
+node -v
+
+//编辑一下本地host,vim当中按i输入内容；保存退出按ESC键，然后按两个大Z或者按:wq回车
+sudo vim /etc/hosts
+//确保里面的内容只有一个127.0.0.1 后面的值为localhost dev
+//下面的内容都注释起来
+127.0.0.1       localhost dev
+
+# The following lines are desirable for IPv6 capable hosts
+#::1     localhost ip6-localhost ip6-loopback
+#ff02::1 ip6-allnodes
+#ff02::2 ip6-allrouters
+
+//下面安装mongodb
+//ubuntu上面安装mongodb的文档 http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu
+
+Ubuntu系统上面的MongoDB服务端和客户端的安装分为4步：
+1.导入包管理系统需要用到的公钥：
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+2.为MongoDB创建list文件：这个根据ubuntu系统的不同而不同，查看上面的文档
+echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+3.重载本地包数据库
+sudo apt-get update
+4.安装最新版的MongoDB
+sudo apt-get install -y mongodb-org
+5.启动
+sudo service mongod start
+6.测试
+sudo mongo
+
+ORM Object Relation Model 操作对象，让对象帮我们去操作数据库
+
+//配置SSH免密钥登录
+//git推送后自动更新网站
+
+Express(RMVC框架)
+M Model表示数据，就是负责数据的管理，对数据的CRUD(Create, Read, Update, Delete) 增删改查; 有可能是对数据库，也有可能对文件和目录
+V view视图，通常是html模板
+C Controller控制器，中间的协调者，把数据和模板都得到返回给用户；或者把数据得到返回json
+实际网站请求就是RCMV, 返回的v是html
+API请求就是RCM 返回的是json或者xml
+
+Mongoose的使用
+1.引入包
+2.定义Schema，导出Model
+3.对Model的操作，可以增删改查
+
+function Person(name){
+  this.name = name;
+}
+Person.prototype.sayHello = function(){
+  console.log('hi');
+}
+var p = new Person('p1');
+p.name;//实例属性
+p.sayHello();//实例方法
+
+静态属性，实例属性
+静态方法，实例方法
+Person.city = '北京';//这个属性在构造函数身上，使用的时候Person.city; 这个叫静态属性
+Person.sayHi = function() {
+  console.log('hi');
+}//这个方法在构造函数身上，使用的时候使用Person.sayHi();这个叫静态方法
+
+##20171024
+基于Express+ejs+mongoose开发网站
+mkdir node-ask
+cd node-ask
+npm i -g generator-express
+express -e .
+npm i
+npm start
+http://localhost:3000
+写路由，写页面
+开启mongo的服务器
+引入mongoose模块
+npm i -S mongoose
+vim ./config/db.js
+vim ./model/User.js
+vim ./vendor/md5.js
+注册功能：接收用户提交的用户名和密码，对密码加密，查询用户，渲染模板
+vim ./views/user/register.ejs
+需要开启调试工具(或者其他工具有对应的其他方法)：
+node-inspector &
+node --debug ./bin/www
+登录功能：安装express-session; 在app.js中配置
+
+使用Teamview做团队任务管理
+https://www.teambition.com/
+石墨进行实时文档管理
+https://shimo.im/
+QQ其实就是Socket
+
+
+#20171030
+NodeJS复习
+assert.equal();
+console.log();
+console.error();
+crypto模块用来加密：md5, sha1
+fs.readFile();
+fs.readDir();
+__dirname
+__filename
+exports
+module
+require()
+http.createServer().listen();
+path.dirname();
+path.extname();
+path.join();
+path.normalize();
+querystring.parse();
+url.parse();
+util.inspect();
+模块：
+  从 Y 路径的模块 require(X)
+  1. 如果 X 是一个核心模块，
+     a. 返回核心模块
+     b. 结束
+  2. 如果 X 是以 '/' 开头
+     a. 设 Y 为文件系统根目录
+  3. 如果 X 是以 './' 或 '/' 或 '../' 开头
+     a. 加载文件(Y + X)
+     b. 加载目录(Y + X)
+  4. 加载Node模块(X, dirname(Y))
+  5. 抛出 "未找到"
+
+  加载文件(X)
+  1. 如果 X 是一个文件，加载 X 作为 JavaScript 文本。结束
+  2. 如果 X.js 是一个文件，加载 X.js 作为 JavaScript 文本。结束
+  3. 如果 X.json 是一个文件，解析 X.json 成一个 JavaScript 对象。结束
+  4. 如果 X.node 是一个文件，加载 X.node 作为二进制插件。结束
+
+  加载索引(X)
+  1. 如果 X/index.js 是一个文件，加载 X/index.js 作为 JavaScript 文本。结束
+  3. 如果 X/index.json  是一个文件，解析 X/index.json 成一个 JavaScript 对象。结束
+  4. 如果 X/index.node 是一个文件，加载 X/index.node 作为二进制插件。结束
+
+  加载目录(X)
+  1. 如果 X/package.json 是一个文件，
+     a. 解析 X/package.json，查找 "main" 字段
+     b. let M = X + (json main 字段)
+     c. 加载文件(M)
+     d. 加载索引(M)
+  2. 加载索引(X)
+
+#20171031
+var Person = function() { }
+简单工厂：用于创建单一对象的实例
+function PersonFactory() {
+  return new Person();
+}
+var p = PersonFactory();
+批量生产：一个方法，能够实现批量创建
+function PersonFactory(num) {
+  if (num) {
+    var result = [];
+    for (var i = 0; i < num; i++) {
+      result.push(arguments.callee());
+    }
+    return result;
+  } else {
+    return new Person();
+  }
+}
+寄生增强：在简单工厂里面生产对象后，添加属性和方法
+function PersonFactory() {
+  //生产
+  var p = new Person();
+  //增强
+  p.walk = function(){}
+  //工厂
+  return p;
+}
+安全工厂：防止有人使用new关键字去调用简单工厂方法
+function PersonFactory() {
+  if (this instanceof arguments.callee) {
+    return arguments.callee();
+  } else {
+    return new Person();
+  }
+}
+var p = new PersonFactory();
+var p1 = PersonFactory();
+工厂方法：创建多个不同类型的对象
+function Cat() {
+  this.name = 'hello kitty';
+  this.type = 'cat';
+}
+Cat.prototype.init = function(){
+  console.log(this);
+}
+function Dog() {
+  this.name = 'wood';
+  this.type = 'dog';
+}
+Dog.prototype.init = function(){
+  console.log(this);
+}
+function AnimalFactory(type) {
+  var animal;
+  switch(type) {
+    case 'Cat':
+      animal = new Cat();
+      break;
+    case 'Dog':
+      animal = new Dog();
+      break;
+  }
+  if (animal) {
+    animal.init && animal.init();
+  }
+}
+原型模式：把类中公共的属性和方法提取
+function Animal() {
+  this.name = 'hello kitty';
+}
+Animal.prototype.init = function(){
+  console.log(this);
+}
+function Cat(name) {
+  Animal.call(this, name);
+  this.type = 'cat';
+}
+Cat.prototype = new Animal();
+
+function Dog(name) {
+  Animal.call(this, name);
+  this.type = 'dog';
+}
+Dog.prototype = new Animal();
+function AnimalFactory(type) {
+  var animal;
+  switch(type) {
+    case 'Cat':
+      animal = new Cat('hello kitty');
+      break;
+    case 'Dog':
+      animal = new Dog('wood');
+      break;
+  }
+  if (animal) {
+    animal.init && animal.init();
+  }
+}
+惰性单例模式：希望创建出来的对象只有一个;并且希望在用到的时候才调用
+function Animal() {
+  this.name = 'animal';
+}
+var SingleAnimal = (function(){
+  var _instance = null;
+  return function () {
+    if (!_instance) {
+      _instance = new Animal();
+    }
+    return _instance;
+  }
+})();
+var a1 = SingleAnimal();
+var a2 = SingleAnimal();
+console.log(a1 === a2);
+闭包类：为了能够封装私有的属性和方法
+var Animal = (function () {
+        function Animal() {
+            //公共属性
+            this.name = 'animal';
+            var sex = 0;//私有属性
+            //私有属性希望对外可以暴露，但是可以限制
+            this.getSex = function() { // getter
+                return sex;
+            }
+            this.setSex = function(newsex) { // setter
+                sex = newsex;
+            }  
+        }
+        //公共方法
+        Animal.prototype.say = function() {
+            console.log('hi' + this.name);
+        }
+        return Animal;
+    })();
+    var a = new Animal();
+    console.log(a.name);
+    a.say();
+    a.name = 'cat';
+    console.log(a.name);
+    a.say();
+    console.log(a.sex);
+    console.log(a.getSex());
+    a.setSex(1);
+    console.log(a.getSex());
+适配器：
+  数据适配
+  参数适配
+
+#20171103
+必会的ES6知识点：
+环境搭建：babel node npm webpack
+let,const
+rest: ...rest
+解构赋值：[] {} [{[{}]}]
+字符串：includes, startsWidth, endsWidth, trim, `${name}`
+数字：Number.isNaN, Number.parseInt, Number.parseFloat
+数组：Array.from(类数组) 数组.forEach
+函数：参数默认值，箭头函数
+对象：属性的缩写，方法简写
+Symbol: 知道是一种类型， Symbol()能够产生一个独一无二的值，Symbol.iterator用来设置默认的迭代器
+Set: 用来存放无重复的数据
+类：class, extends, constructor, get, set, static, super
+Promise: new Promise(function(resolve,reject){});   promise.then(function(){}).catch(function(){})
+Promise.all, Promise.race
+迭代器Iterator: next();   for(let k of arr) {}
+生成器genertor: function * fn(){yield 'a'; yield 'b';yield 'c'}
+ES2017: async await 实际上是generator和yield的语法糖
+异步的解决方案：回调函数 --> promise --> generator --> async
+模块化：export, export default, import './a'; import a from './a'; import * as a from './a'; import {hello, A} from './a';
+
+#尝试学习Koa.js, Egg.js（选学）, ThinkJS（选学）, 小程序， WebPack, Git的分支等
+
+#20171106
+包管理：bower, npm, yarn
+操作系统：chocolatey brew centos:yum ubuntu:apt-get
+语言：php:pear,composer java:maven ruby:gem
+
+yarn, Browserify, Grunt, eslint, lint, async, commonjs, amd, requirejs, haml, coffee script, typescript    
+
 ##5点后的练习计划
 - 20170828 练习批量绑定事件和对应模型
 - 20170829 练习函数截流滚动或者延迟搜索
