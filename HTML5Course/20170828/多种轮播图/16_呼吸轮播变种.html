@@ -14,6 +14,7 @@
 			margin: 100px auto;
 			border: 1px solid #333;
 			position: relative;
+			background-color: black;
 		}
 		.carousel ul{
 			list-style: none;
@@ -119,82 +120,73 @@
 		//图片宽度
 		var width = 560;
 		//滚动速度
-		var animatetime = 300;
+		var animatetime = 600;
 		//缓冲描述
 		var tween = "Linear";
 		//间隔时间
 		var interval = 2000;
 		 
 		var idx = 0;
-
-
-		//自动轮播
-		var timer = setInterval(rightBtnHandler,interval);
-		//鼠标进入停止
-		carousel.onmouseover = function(){
-			clearInterval(timer);
-		}
-		//鼠标离开开始
-		carousel.onmouseout = function(){
-			timer = setInterval(rightBtnHandler,interval);
-		}
+ 		
+ 		//自动轮播
+ 		var timer = setInterval(rightBtnHandler, interval);
+ 		carousel.onmouseover = function () {
+ 			clearInterval(timer);
+ 		}
+ 		carousel.onmouseout = function () {
+ 			timer = setInterval(rightBtnHandler, interval);
+ 		}
  		
  		//右按钮的监听
  		rightBtn.onclick = rightBtnHandler;
-
  		function rightBtnHandler(){
  			//函数截流
  			if(lis[idx].isanimated) return;
 
  			//原来的信号量的图片淡出
- 			animate(lis[idx],{"opacity" : 0},1000);
- 			//信号量改变
- 			idx++;
- 			if(idx > imgLength - 1){
- 				idx = 0;
- 			}
- 			//新信号量的图片淡入
- 			animate(lis[idx],{"opacity" : 1},1000);
-
- 			changeCircle();
+ 			animate(lis[idx],{"opacity" : 0},animatetime,function(){
+ 				//信号量改变
+	 			idx++;
+	 			if(idx > imgLength - 1){
+	 				idx = 0;
+	 			}
+	 			//新信号量的图片淡入
+	 			animate(lis[idx],{"opacity" : 1},animatetime);
+	 			changeCircle();
+ 			});			
  		}
-
  		//左按钮的监听
- 		leftBtn.onclick = function(){
- 			//函数截流
+ 		leftBtn.onclick = function () {
+ 			//函数节流
  			if(lis[idx].isanimated) return;
-
  			//原来的信号量的图片淡出
- 			animate(lis[idx],{"opacity" : 0},1000);
- 			//信号量改变
- 			idx--;
- 			if(idx < 0){
- 				idx = imgLength - 1;
- 			}
- 			//新信号量的图片淡入
- 			animate(lis[idx],{"opacity" : 1},1000);
-
- 			changeCircle();
+ 			animate(lis[idx],{"opacity": 0},animatetime, function(){
+ 				//信号量改变
+ 				idx--;
+ 				if (idx < 0) {
+ 					idx = imgLength - 1;
+ 				}
+ 				//新信号量的图片淡入
+ 				animate(lis[idx], {"opacity": 1},animatetime);
+ 				changeCircle();
+ 			})
  		}
-
+ 		
  		//批量添加小圆点的监听
-		for(var i = 0 ; i <= imgLength - 1 ; i++){
-			circlesLi[i].index = i;	//先编号
-			circlesLi[i].onclick = function(){
-				//截流
-				if(lis[idx].isanimated) return;
-				
-				//原来的信号量的图片淡出
- 				animate(lis[idx],{"opacity" : 0},1000);
+ 		for (var i = 0; i <= imgLength - 1; i++) {
+ 			circlesLi[i].index = i; //先编号
+ 			circlesLi[i].onclick = function () {
+ 				//截流
+ 				if(lis[idx].isanimated) return;
+ 				//原来的信号量的图片淡出
+ 				animate(lis[idx],{"opacity": 0}, animatetime);
  				//信号量改变
  				idx = this.index;
  				//新信号量的图片淡入
- 				animate(lis[idx],{"opacity" : 1},1000);
-
+ 				animate(lis[idx],{"opacity": 1},animatetime);
  				changeCircle();
-			}
-		}
-
+ 			}
+ 		}
 
  		//更换小圆点函数
 		function changeCircle(){
