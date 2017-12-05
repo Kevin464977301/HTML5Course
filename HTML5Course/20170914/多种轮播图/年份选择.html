@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<select name = "year" id = "selector">
+		<option>1996</option>
+	</select>
+	<div>
+		<p class = "kaiyu">凯玉同学</p>
+	</div>
+	<div class = "oDiv">
+		<p class = "guikang">贵坑同学</p>
+	</div>
+	<button>挪动凯玉</button>
+	<div class = "numbers">
+		<p>1</p>
+		<p>2</p>
+		<p>3</p>
+		<p>4</p>
+		<p>5</p>
+		<p>6</p>
+		<p>7</p>
+		<p>8</p>
+		<p>9</p>
+		<p>10</p>
+	</div>
+	<button class = "minus"></button>
+	<script type="text/javascript">
+		//定义信号量
+		let oSelect = document.querySelector("#selector");
+		for(let i = 1996;i<2018;i++){
+			oSelect.innerHTML += `<option>${i}</option>`;
+		}
+
+		//定义信号量
+		let oKaiyu = document.querySelector(".kaiyu");
+		let oGuikang = document.querySelector(".guikang");
+		let oDiv = document.querySelector(".oDiv");
+		let oBtn = document.querySelector("button");
+		//挪动凯玉
+		oBtn.onclick = function(){
+			oDiv.insertBefore(oKaiyu,oGuikang);
+		}
+		//定义信号量
+		let uDiv = document.querySelector(".numbers");
+		let uPs = document.querySelector(".numbers").querySelectorAll("p");
+		let minus = document.querySelector(".minus");
+		for(let i = 0;i<uPs.length;i++)
+		uPs[i].onclick = function(){
+			this.parentNode.removeChild(this);
+		}
+	</script>
+</body>
+</html>

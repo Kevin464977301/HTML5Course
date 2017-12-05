@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="text" name="">
+	<button>添加待办事项</button>
+	<ul>
+		<li>监督凯玉同学睡觉</li>
+	</ul>w
+	<script type="text/javascript">
+		//添加带棒是想
+		// 信号量设置
+		let oInput = document.querySelector("input");
+		let oBtn = document.querySelector("button");
+		let oUl = document.querySelector("ul");
+		let oLis = document.querySelectorAll("li");
+
+		//开始添加事件
+		oBtn.onclick = function(){
+			let context = oInput.value;
+			oLis = document.querySelectorAll("li");
+			let oLi = document.createElement("li");
+			oLi.innerText = oInput.value;
+			oUl.insertBefore(oLi,oLis[0]);	
+		}
+
+	</script>
+</body>
+</html>

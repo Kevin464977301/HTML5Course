@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div>
+		<p>凯玉同学</p>
+	</div>
+	<script type="text/javascript">
+		//信号量
+		let div = document.querySelector("div");
+		let p = document.querySelector("p");
+		document.body.onclick = function(){
+			console.log("点到了body");
+		}
+		div.onclick = function(){
+			console.log("点到了div");
+		}
+		p.onclick = function(){
+			console.log("点到了p");
+		}
+	</script>
+</body>
+</html>
